@@ -1,5 +1,5 @@
 services:
-  web:
-    build: .
+  api:
+    build: ./cmd
     ports:
       - "3000:3000"
