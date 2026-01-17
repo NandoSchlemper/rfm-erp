@@ -1,50 +1,53 @@
 package darwin
 
 import (
-	"bytes"
 	"fmt"
-	"io"
 	"net/http"
-	"time"
+	"net/url"
 
 	"github.com/goccy/go-json"
 )
 
-func GetTrechosPercorridos(initial_date, final_date string) (*string, error) {
+func GetTrechosPercorridos(initial_date, final_date string) ([]DarwinAPITrechosResponse, error) {
 	apiConfig := &DarwinAPIScheme{}
-	apiConfig.Load()
+	token, err := apiConfig.Load()
+	if err != nil {
+		return nil, fmt.Errorf("Erro ao carregar as variaveis da API.\n%v", err)
+	}
 
-	layout := "2026-01-15 00:00"
+	fmt.Printf("Bearer token: %v", token)
 
-	initial_date_edited, _ := time.Parse(layout, initial_date)
-	final_date_edited, _ := time.Parse(layout, final_date)
+	urlParams := url.Values{}
+	urlParams.Add("token", *token)
+	urlParams.Add("data_inicial", initial_date)
+	urlParams.Add("data_final", final_date)
 
-	url := apiConfig.url + "trechos"
-	payload, _ := json.Marshal(&DarwinAPITrechosPayload{
-		FirstDate: initial_date_edited.String(),
-		LastDate:  final_date_edited.String(),
-	})
+	url := apiConfig.url + "trechos" + "?" + urlParams.Encode()
 
 	client := &http.Client{}
-	req, _ := http.NewRequest("GET", url, bytes.NewBuffer(payload))
+	req, _ := http.NewRequest("GET", url, nil)
 
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+apiConfig.token)
+	req.Header.Set("accept", "application/json")
+	req.Header.Set("Authorization", "Bearer "+*token)
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("Erro ao realizar a requisição: %v", err.Error())
+		return nil, fmt.Errorf("Erro ao realizar a requisição: \n%v\n", err)
 	}
 	defer resp.Body.Close()
 
-	// var response []DarwinAPITrechosResponse
-	// err = json.NewDecoder(resp.Body).Decode(&response)
-	data, err := io.ReadAll(resp.Body)
+	var response []DarwinAPITrechosResponse
+	err = json.NewDecoder(resp.Body).Decode(&response)
 	if err != nil {
-		return nil, fmt.Errorf("Erro ao descompactar o JSON: %v", err.Error())
+		return nil, fmt.Errorf("Erro ao descompactar o JSON: \n%v\n", err.Error())
 	}
 
-	stringfyData := string(data)
+	process, err := SumByPlates(response)
+	if err != nil {
+		return nil, fmt.Errorf("Erro ao transformar os dados recebidos. \n%v\n", err)
+	}
 
-	return &stringfyData, nil
+	fmt.Printf("Dados da API de Trechos (Darwin) formatados: %v", process)
+
+	return response, nil
 }
