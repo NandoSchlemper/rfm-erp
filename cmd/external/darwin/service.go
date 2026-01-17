@@ -8,7 +8,13 @@ import (
 	"github.com/goccy/go-json"
 )
 
-func GetTrechosPercorridos(initial_date, final_date string) ([]DarwinAPITrechosResponse, error) {
+type service struct{}
+
+type Service interface {
+	GetVehiclesKM(DarwinAPITrechosPayload) (map[string]float64, error)
+}
+
+func (s service) GetVehiclesKM(body DarwinAPITrechosPayload) (map[string]float64, error) {
 	apiConfig := &DarwinAPIScheme{}
 	token, err := apiConfig.Load()
 	if err != nil {
@@ -19,8 +25,8 @@ func GetTrechosPercorridos(initial_date, final_date string) ([]DarwinAPITrechosR
 
 	urlParams := url.Values{}
 	urlParams.Add("token", *token)
-	urlParams.Add("data_inicial", initial_date)
-	urlParams.Add("data_final", final_date)
+	urlParams.Add("data_inicial", body.FirstDate)
+	urlParams.Add("data_final", body.LastDate)
 
 	url := apiConfig.url + "trechos" + "?" + urlParams.Encode()
 
@@ -49,5 +55,9 @@ func GetTrechosPercorridos(initial_date, final_date string) ([]DarwinAPITrechosR
 
 	fmt.Printf("Dados da API de Trechos (Darwin) formatados: %v", process)
 
-	return response, nil
+	return process, nil
+}
+
+func NewService() Service {
+	return &service{}
 }
