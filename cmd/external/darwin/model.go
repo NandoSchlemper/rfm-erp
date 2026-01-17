@@ -9,6 +9,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/goccy/go-json"
 )
@@ -23,6 +24,36 @@ type DarwinAPIScheme struct {
 type DarwinAPITrechosPayload struct {
 	FirstDate string `json:"data_inicial"`
 	LastDate  string `json:"data_final"`
+}
+
+func (d DarwinAPITrechosPayload) VerifyData() error {
+	timeFormatter := "2006-01-02 15:04"
+
+	first_date_formatted, err := time.ParseInLocation(timeFormatter, d.FirstDate, time.UTC)
+	if err != nil {
+		return fmt.Errorf("Data inicial deve estar no formato: YYYY-MM-DD HH:MM")
+	}
+
+	final_date_formatted, err := time.ParseInLocation(timeFormatter, d.LastDate, time.UTC)
+	if err != nil {
+		return fmt.Errorf("Data final deve estar no formato: YYYY-MM-DD HH:MM")
+	}
+
+	if first_date_formatted.After(final_date_formatted) {
+		return fmt.Errorf("Data inicial não pode ser depois da data final.")
+	}
+
+	timeDeadline := time.Date(2026, time.December, 31, 23, 59, 0, 0, time.UTC)
+
+	if first_date_formatted.After(timeDeadline) {
+		return fmt.Errorf("Data inicial deve ser antes de 2026-12-31 23:59.")
+	}
+
+	if final_date_formatted.After(timeDeadline) {
+		return fmt.Errorf("Data final deve ser antes de 2026-12-31 23:59")
+	}
+
+	return nil
 }
 
 type DarwinAPITrechosResponse struct {

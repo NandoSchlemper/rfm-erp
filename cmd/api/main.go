@@ -28,7 +28,7 @@ func main() {
 		},
 	)
 
-	app.Get("/darwin/trechos", darwin.GetVehiclesKMByData(darwinService))
+	app.Post("/darwin/trechos", darwin.GetVehiclesKMByData(darwinService))
 
 	log.Fatal(app.Listen(":3000"))
 }
