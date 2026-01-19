@@ -5,6 +5,7 @@ go 1.25.0
 require github.com/gofiber/fiber/v3 v3.0.0-rc.3
 
 require (
+	github.com/a-h/templ v0.3.977 // indirect
 	github.com/andybalholm/brotli v1.2.0 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/gofiber/schema v1.6.0 // indirect

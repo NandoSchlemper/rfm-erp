@@ -11,10 +11,10 @@ import (
 type service struct{}
 
 type Service interface {
-	GetVehiclesKM(DarwinAPITrechosPayload) (map[string]float64, error)
+	GetVehiclesKM(DarwinAPITrechosPayload) ([]DarwinTrechosResponse, error)
 }
 
-func (s service) GetVehiclesKM(body DarwinAPITrechosPayload) (map[string]float64, error) {
+func (s service) GetVehiclesKM(body DarwinAPITrechosPayload) ([]DarwinTrechosResponse, error) {
 	apiConfig := &DarwinAPIScheme{}
 	token, err := apiConfig.Load()
 	if err != nil {
@@ -48,7 +48,7 @@ func (s service) GetVehiclesKM(body DarwinAPITrechosPayload) (map[string]float64
 		return nil, fmt.Errorf("Erro ao descompactar o JSON: \n%v\n", err.Error())
 	}
 
-	process, err := SumByPlates(response)
+	process, err := ProcessData(response)
 	if err != nil {
 		return nil, fmt.Errorf("Erro ao transformar os dados recebidos. \n%v\n", err)
 	}

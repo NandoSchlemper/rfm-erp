@@ -62,6 +62,11 @@ type DarwinAPITrechosResponse struct {
 	KmPercorrindos float64 `json:"km_percorrido"`
 }
 
+type DarwinTrechosResponse struct {
+	Placa         string  `json:"placa"`
+	KmPercorridos float64 `json:"km"`
+}
+
 type DarwinAPILoginResponse struct {
 	Token string `json:"token"`
 }
