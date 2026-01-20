@@ -36,13 +36,13 @@ func Layout(title string) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/views/layout.templ`, Line: 7, Col: 15}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/views/layout.templ`, Line: 7, Col: 16}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"></head><body>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>\r\n\t\t\t* {\r\n\t\t\t\tmargin: 0;\r\n\t\t\t\tpadding: 0;\r\n\t\t\t\tbox-sizing: border-box;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tbody {\r\n\t\t\t\tfont-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;\r\n\t\t\t\tbackground: #f5f5f5;\r\n\t\t\t\tpadding: 20px;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t.container {\r\n\t\t\t\tmax-width: 1200px;\r\n\t\t\t\tmargin: 0 auto;\r\n\t\t\t\tbackground: white;\r\n\t\t\t\tpadding: 30px;\r\n\t\t\t\tborder-radius: 8px;\r\n\t\t\t\tbox-shadow: 0 2px 10px rgba(0,0,0,0.1);\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\th1 {\r\n\t\t\t\tmargin-bottom: 30px;\r\n\t\t\t\tcolor: #333;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t.table {\r\n\t\t\t\twidth: 100%;\r\n\t\t\t\tborder-collapse: collapse;\r\n\t\t\t\tmargin-top: 20px;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t.table th {\r\n\t\t\t\tbackground-color: #f8f9fa;\r\n\t\t\t\tpadding: 12px 15px;\r\n\t\t\t\ttext-align: left;\r\n\t\t\t\tborder-bottom: 2px solid #dee2e6;\r\n\t\t\t\tfont-weight: 600;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t.table td {\r\n\t\t\t\tpadding: 12px 15px;\r\n\t\t\t\tborder-bottom: 1px solid #dee2e6;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t.table tr:hover {\r\n\t\t\t\tbackground-color: #f8f9fa;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t.table-striped tr:nth-child(even) {\r\n\t\t\t\tbackground-color: #fafafa;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t.mt-3 {\r\n\t\t\t\tmargin-top: 1rem;\r\n\t\t\t}\r\n\t\t</style></head><body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

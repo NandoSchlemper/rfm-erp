@@ -1,5 +1,39 @@
 package views
 
-templ Home() {
-  <form action=""></form>
+import (
+	"fmt"
+	"github.com/NandoSchlemper/rfm-erp/frontend/models"
+)
+
+templ ShowRFMData(apiData []models.DarwinTrechosResponse) {
+	<div class="container">
+		<h1>Relatório de Trechos</h1>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Placa</th>
+					<th>KM Percorridos</th>
+				</tr>
+			</thead>
+			<tbody>
+				for _, item := range apiData {
+					<tr>
+						<td>{ item.Placa }</td>
+						<td>{ fmt.Sprintf("%.2f", item.KmPercorridos) }</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		
+		if len(apiData) > 0 {
+			<div class="mt-3">
+				<strong>Total de Veículos: { len(apiData) }</strong>
+			</div>
+		}
+	</div>
+}
+
+templ Home(apiData []models.DarwinTrechosResponse) {
+	@Layout("RFM ERP - Trechos")
+	@ShowRFMData(apiData)
 }
