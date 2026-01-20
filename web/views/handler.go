@@ -7,8 +7,8 @@ import (
 )
 
 func HandleHello(c fiber.Ctx) error {
-	helloComponent := Hello("Hi there!")
-	handler := adaptor.HTTPHandler(templ.Handler(helloComponent))
+	component := ShowRFMData()
+	handler := adaptor.HTTPHandler(templ.Handler(component))
 
 	return handler(c)
 }

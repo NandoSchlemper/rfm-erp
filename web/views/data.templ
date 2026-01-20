@@ -1,0 +1,18 @@
+package views
+
+import "github.com/NandoSchlemper/rfm-erp/frontend/models"
+
+templ ShowRFMData(apiData []models.DarwinTrechosResponse) {
+  <table>
+    <tr>
+      for _, item := range apiData {
+        <th>{ item.Placa }</th>
+      }
+    </tr>
+    <tr>
+      for _, item := range apiData {
+        <th>{item.KmPercorridos}</th>
+      }
+    </tr>
+  </table>
+}
