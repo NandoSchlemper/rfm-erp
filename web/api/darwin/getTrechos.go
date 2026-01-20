@@ -51,15 +51,12 @@ func GetTrechosData() ([]models.DarwinTrechosResponse, error) {
 }
 
 func SortPlacasByPriorityAndKM(data []models.DarwinTrechosResponse, priorityPlacas []string) []models.DarwinTrechosResponse {
-	// Mapa de prioridade: placa sem hífen -> true
 	priorityMap := make(map[string]bool)
 	for _, placa := range priorityPlacas {
-		// Remove o hífen
 		placaSemHifen := strings.ReplaceAll(placa, "-", "")
 		priorityMap[placaSemHifen] = true
 	}
 
-	// Separar em dois slices
 	var priority, nonPriority []models.DarwinTrechosResponse
 	for _, item := range data {
 		if priorityMap[item.Placa] {
@@ -69,7 +66,6 @@ func SortPlacasByPriorityAndKM(data []models.DarwinTrechosResponse, priorityPlac
 		}
 	}
 
-	// Ordenar cada slice por KM decrescente
 	sort.Slice(priority, func(i, j int) bool {
 		return priority[i].KmPercorridos > priority[j].KmPercorridos
 	})
@@ -78,6 +74,5 @@ func SortPlacasByPriorityAndKM(data []models.DarwinTrechosResponse, priorityPlac
 		return nonPriority[i].KmPercorridos > nonPriority[j].KmPercorridos
 	})
 
-	// Concatenar
 	return append(priority, nonPriority...)
 }

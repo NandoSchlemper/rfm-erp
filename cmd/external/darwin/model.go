@@ -57,17 +57,17 @@ func (d DarwinAPITrechosPayload) VerifyData() error {
 }
 
 type DarwinAPITrechosResponse struct {
-	Placa            string                 `json:"placa"`
-	DataInicial      map[string]interface{} `json:"data_inicial"`
-	DataFinal        map[string]interface{} `json:"data_final"`
-	LatitudeInicial  string                 `json:"latitude_inicial"`
-	LongitudeInicial string                 `json:"longitude_inicial"`
-	LatitudeFinal    string                 `json:"latitude_final"`
-	LongitudeFinal   string                 `json:"longitude_final"`
-	Tempo            int                    `json:"tempo"`
-	KmPercorrido     float64                `json:"km_percorrido"`
-	AddressInicial   string                 `json:"address_inicial"`
-	AddressFinal     string                 `json:"address_final"`
+	Placa            string         `json:"placa"`
+	DataInicial      map[string]any `json:"data_inicial"`
+	DataFinal        map[string]any `json:"data_final"`
+	LatitudeInicial  string         `json:"latitude_inicial"`
+	LongitudeInicial string         `json:"longitude_inicial"`
+	LatitudeFinal    string         `json:"latitude_final"`
+	LongitudeFinal   string         `json:"longitude_final"`
+	Tempo            int            `json:"tempo"`
+	KmPercorrido     float64        `json:"km_percorrido"`
+	AddressInicial   string         `json:"address_inicial"`
+	AddressFinal     string         `json:"address_final"`
 }
 
 type DarwinTrechosResponse struct {
