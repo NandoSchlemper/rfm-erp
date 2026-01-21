@@ -2,7 +2,7 @@ services:
   api:
     build: ./cmd
     env_file:
-      - ./cmd/.env.prod
+      - .env.prod
     ports:
       - "3000:3000"
   web:

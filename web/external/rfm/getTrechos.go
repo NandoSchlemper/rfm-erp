@@ -14,7 +14,7 @@ import (
 func GetTrechosData() ([]models.DarwinTrechosResponse, error) {
 	// layout := "2000-12-31"
 	client := http.Client{}
-	url := "http://localhost:3000/darwin/trechos"
+	url := "http://host.docker.internal:3000/darwin/trechos"
 
 	// now_timer := time.Now()
 

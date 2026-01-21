@@ -13,12 +13,12 @@ func GetVehiclesKMByData(service Service) fiber.Handler {
 
 		err = reqPayload.VerifyData()
 		if err != nil {
-			return fiber.NewError(fiber.StatusBadGateway, "Dados fornecidos pelo usuário com a formatação não adequada para procedimento com as operações da API."+err.Error())
+			return fiber.NewError(fiber.StatusBadGateway, "Dados fornecidos pelo usuário com a formatação não adequada para procedimento com as operações da API.\n"+err.Error())
 		}
 
 		response, err := service.GetVehiclesKM(reqPayload)
 		if err != nil || len(response) == 0 {
-			return fiber.NewError(fiber.StatusBadGateway, "Erro ao processar os dados da API.")
+			return fiber.NewError(fiber.StatusBadGateway, "Erro ao processar os dados da API.\n"+err.Error()+"\n")
 		}
 
 		return c.JSON(response)
