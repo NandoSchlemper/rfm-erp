@@ -5,3 +5,7 @@ services:
       - ./cmd/.env.prod
     ports:
       - "3000:3000"
+  web:
+    build: ./web
+    ports:
+      - "4000:4000"
