@@ -1,7 +1,7 @@
 package views
 
 import (
-	"github.com/NandoSchlemper/rfm-erp/frontend/api/darwin"
+	darwin "github.com/NandoSchlemper/rfm-erp/frontend/external/rfm"
 	"github.com/a-h/templ"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/adaptor"
