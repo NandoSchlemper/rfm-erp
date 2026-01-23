@@ -11,15 +11,15 @@ import (
 	"github.com/NandoSchlemper/rfm-erp/frontend/models"
 )
 
-func GetTrechosData() ([]models.DarwinTrechosResponse, error) {
+func GetTrechosData(forms models.DarwinTrechosRequest) ([]models.DarwinTrechosResponse, error) {
 	// layout := "2000-12-31"
 	client := http.Client{}
 	url := "http://host.docker.internal:3000/darwin/trechos"
 
 	// now_timer := time.Now()
 
-	initial_date := "2026-01-19 00:00"
-	final_date := "2026-01-19 23:59"
+	initial_date := forms.Initial_date
+	final_date := forms.Final_date
 
 	requestBody, err := json.Marshal(models.DarwinTrechosRequest{
 		Initial_date: initial_date,
