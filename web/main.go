@@ -15,7 +15,7 @@ func main() {
 		AllowHeaders: []string{"Origin", "Content-Type", "Accept"},
 	}))
 
-	app.Get("/", views.Form)
-	app.Post("/process", views.ProcessHandler)
+	app.Get("/", views.HandleForm)
+	app.Get("/process", views.ProcessHandler)
 	app.Listen(":4000")
 }

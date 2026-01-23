@@ -1,0 +1,28 @@
+package views
+
+templ Erro(mensagem string) {
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Erro</title>
+		<style>
+			body { font-family: sans-serif; padding: 40px; }
+			.error-box { 
+				border: 2px solid #ff6b6b; 
+				background: #ffeaea; 
+				padding: 20px; 
+				border-radius: 5px; 
+				max-width: 600px; 
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="error-box">
+			<h1 style="color: #d63031;">❌ Erro</h1>
+			<p>{ mensagem }</p>
+			<a href="/" style="color: #0984e3;">← Voltar</a>
+		</div>
+	</body>
+	</html>
+}

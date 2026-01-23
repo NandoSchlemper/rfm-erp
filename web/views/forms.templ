@@ -1,14 +1,14 @@
 package views
 
 templ Form() {
-  <form method="POST" action="http://host.docker.internal:3000/darwin/trechos">
+  <form method="POST" action="/process">
     <div>
       <label for="initial_date">Data Inicial:</label>
-      <input type="text" id="initial_date" name="initial_date" required>
+      <input type="date" id="initial_date" name="initial_date" required>
     </div>
     <div>
       <label for="final_date">Data Final:</label>
-      <input type="text" id="final_date" name="final_date" required>
+      <input type="date" id="final_date" name="final_date" required>
     </div>
     <button type="submit">Enviar!</button>
   </form>

@@ -1,6 +1,8 @@
 package views
 
 import (
+	"log"
+
 	darwin "github.com/NandoSchlemper/rfm-erp/frontend/external/rfm"
 	"github.com/NandoSchlemper/rfm-erp/frontend/models"
 	"github.com/a-h/templ"
@@ -8,37 +10,33 @@ import (
 	"github.com/gofiber/fiber/v3/middleware/adaptor"
 )
 
-func HandleHello(c fiber.Ctx) error {
-	apiData, err := darwin.GetTrechosData()
-	if err != nil {
-		return c.Status(500).SendString("Erro ao buscar dados: " + err.Error())
-	}
-
-	component := Home(apiData)
-	handler := adaptor.HTTPHandler(templ.Handler(component))
-
-	return handler(c)
-}
-
 func HandleForm(c fiber.Ctx) error {
 	component := Form()
 	handler := adaptor.HTTPHandler(templ.Handler(component))
-
 	return handler(c)
 }
 
 func ProcessHandler(c fiber.Ctx) error {
-	var formData models.DarwinTrechosRequest
+	initialDate := c.FormValue("initial_date")
+	finalDate := c.FormValue("final_date")
 
-	if err := c.Bind().Body(&formData); err != nil {
-		return c.Status(400).SendString("Erro ao processar dados " + err.Error())
+	log.Print("=== DEBUG FORMS ===")
+	log.Printf("Data Inicial: %s", initialDate)
+	log.Printf("Data Final: %s", finalDate)
+
+	formData := models.DarwinTrechosRequest{
+		Initial_date: initialDate,
+		Final_date:   finalDate,
 	}
 
 	apiData, err := darwin.GetTrechosData(formData)
 	if err != nil {
-		return c.Status(400).SendString("Erro no retorno da API" + err.Error())
+		errorComponent := Erro("Erro na API: " + err.Error())
+		handler := adaptor.HTTPHandler(templ.Handler(errorComponent))
+		return handler(c)
 	}
 
 	component := Home(apiData)
-	return component.Render(c.Context(), c.Response().BodyWriter())
+	handler := adaptor.HTTPHandler(templ.Handler(component))
+	return handler(c)
 }

@@ -2,6 +2,7 @@ package darwin
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 
@@ -42,16 +43,16 @@ func (s service) GetVehiclesKM(body DarwinAPITrechosPayload) ([]DarwinTrechosRes
 	}
 	defer resp.Body.Close()
 
-	// jsonBody, err := io.ReadAll(resp.Body)
-	// if err != nil {
-	// 	return nil, fmt.Errorf("Erro ao TESTAR a leitura do body, %v\n", err)
-	// }
-	// fmt.Printf("String Body: \n%v\n", string(jsonBody))
+	jsonBody, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("Erro ao TESTAR a leitura do body, %v\n", err)
+	}
+	fmt.Printf("String Body: \n%v\n", string(jsonBody))
 
 	var response []DarwinAPITrechosResponse
 	err = json.NewDecoder(resp.Body).Decode(&response)
 	if err != nil {
-		return nil, fmt.Errorf("Erro ao descompactar o JSON: \n%v\n", err.Error())
+		return nil, fmt.Errorf("Erro ao descompactar o JSON: \n%v\n", err)
 	}
 
 	process, err := ProcessData(response)

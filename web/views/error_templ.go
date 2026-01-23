@@ -8,7 +8,7 @@ package views
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func Form() templ.Component {
+func Erro(mensagem string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -29,7 +29,20 @@ func Form() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<form method=\"POST\" action=\"/process\"><div><label for=\"initial_date\">Data Inicial:</label> <input type=\"date\" id=\"initial_date\" name=\"initial_date\" required></div><div><label for=\"final_date\">Data Final:</label> <input type=\"date\" id=\"final_date\" name=\"final_date\" required></div><button type=\"submit\">Enviar!</button></form>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!doctype html><html><head><title>Erro</title><style>\r\n\t\t\tbody { font-family: sans-serif; padding: 40px; }\r\n\t\t\t.error-box { \r\n\t\t\t\tborder: 2px solid #ff6b6b; \r\n\t\t\t\tbackground: #ffeaea; \r\n\t\t\t\tpadding: 20px; \r\n\t\t\t\tborder-radius: 5px; \r\n\t\t\t\tmax-width: 600px; \r\n\t\t\t\tmargin: 0 auto;\r\n\t\t\t}\r\n\t\t</style></head><body><div class=\"error-box\"><h1 style=\"color: #d63031;\">❌ Erro</h1><p>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var2 string
+		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(mensagem)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/views/error.templ`, Line: 23, Col: 16}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</p><a href=\"/\" style=\"color: #0984e3;\">← Voltar</a></div></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
